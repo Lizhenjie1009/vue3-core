@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./reactive/index.js"></script>
+  <script>
+    const obj = reactive({
+      name: 'zx',
+      age: 123,
+      count: 2
+    })
+    let total = 0
+    // 访问响应式对象的属性，去收集依赖
+    effect(() => total = obj.age + obj.count)
+
+    obj.count = 3
+    console.log(total);
+
+
+    let num = ref(300)
+    console.log(num.value)
+    num.value = 200
+    console.log(num.value)
+
+
+    function toR () {
+      return toRefs(reactive({
+        price: 3000,
+        size: 2
+      }))
+    }
+    console.log(toR(), 'reactive');
+    const { price, size } = toR()
+    price.value = 1
+    console.log(price.value, size.value);
+  </script>
+</body>
+</html>

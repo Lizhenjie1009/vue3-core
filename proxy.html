@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    'use strict'
+    const target = {
+      foo: 'xxx',
+      bar: 'yyy'
+    }
+    // reciver 指向代理对象
+    const proxy = new Proxy(target, {
+      get (target, key, reciver) {
+        console.log(target, key, reciver);
+        return Reflect.get(target, key, reciver)
+      },
+      set (target, key, value, reciver) {
+        return Reflect.set(target, key, value, reciver)
+      },
+      deleteProperty (target, key) {
+        return Reflect.deleteProperty(target, key)
+      }
+    })
+
+    console.log(proxy.bar);
+    proxy.foo = '1'
+
+  </script>
+</body>
+</html>
